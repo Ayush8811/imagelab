@@ -1,34 +1,47 @@
+
 pkg load image
-clear;
-A=imread("/home/ayush/Desktop/lab/lab/1954075/Black_Circle.jpg")
-figure,imshow(A);
 
-padded_img=zeros(size(A)+2); %paddedimg
-final_img=zeros(size(A)); %final_img
+I=imread("/home/exam1/1954075/Black_Circle.jpg");
+I=rgb2gray(I);
+x1=100;
+y1=100;
+x2=220;
+y2=220;
 
-%padded_img   <----  img
-for x=1:size(A,1)
-  for y=1:size(A,2)
-    padded_img(x+1,y+1)=A(x,y);
-  end
-end
-
-
-
-for i=1:size(padded_img, 1)-2
-  for j=1:size(padded_img, 2)-2
-    window=zeros(9,1);  %sort window
-    inc=1;   %window index
-    for x=1:3
-      for y=1:3
-        window(inc)=padded_img(i+x-1,j+y-1);
-        inc=inc+1;
-      end
-    end
-    med=sort(window);
-    final_img(i,j)=med(5);
-   end
- end2
- final_img=uint8(final_img);
- figure,imshow(final_img);
+if(x2>x1 && y2>y1)
+  for i=x1:x2
+    I(i,y1)=255;
+   endfor
+   for j=y1:y2
+     I(x2,j)=255;
+    endfor
+    
+    
+elseif(x2<x1 && y2>y1)
+  for i=x2:x1
+    I(i,y1)=255;
+   endfor
+   for j=y1:y2
+     I(x1,j)=255;
+    endfor
+    
+    
+elseif(x2>x1 && y2<y1)
+  for i=x1:x2
+    I(i,y2)=255;
+   endfor
+   for j=y2:y1
+     I(x2,j)=255;
+   endfor
+   
+   
+elseif(x2<x1 && y2<y1)
+  for i=x2:x1
+    I(i,y2)=255;
+   endfor
+   for j=y2:y1
+     I(x1,j)=255;
+    endfor
+ endif
  
+ figure,imshow(I);
